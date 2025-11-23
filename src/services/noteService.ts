@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
-import type { Note } from "./../types/Note";
+import type { Note } from "../types/note";
 
 const BASE_URL = "https://notehub-public.goit.study/api";
 const token = import.meta.env.VITE_NOTEHUB_TOKEN as string;
