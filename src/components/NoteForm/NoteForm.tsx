@@ -20,9 +20,16 @@ const initialValues: CreateNotePayload = {
 };
 
 const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required"),
-  content: Yup.string().required("Content is required"),
-  tag: Yup.string().required("Tag is required"),
+  title: Yup.string()
+  .min(3, "Title must be at least 3 characters")
+  .max(50, "Title must be at most 100 characters")
+  .required("Title is required"),
+  content: Yup.string()
+  .max(500, "Content must be at least 10 characters")
+  .required("Content is required"),
+  tag: Yup.string()
+  .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"], "Invalid tag")
+  .required("Tag is required"),
 });
 
 export default function NoteForm({ onSuccess, onCancel }: NoteFormProps) {
@@ -74,7 +81,7 @@ export default function NoteForm({ onSuccess, onCancel }: NoteFormProps) {
           </div>
 
           <div className={css.formGroup}>
-            <label htmlFor="text">Content</label>
+            <label htmlFor="content">Content</label>
             <Field
               as="textarea"
               id="content"
@@ -82,7 +89,7 @@ export default function NoteForm({ onSuccess, onCancel }: NoteFormProps) {
               rows={8}
               className={css.textarea}
             />
-            <ErrorMessage name="text" component="span" className={css.error} />
+            <ErrorMessage name="content" component="span" className={css.error} />
           </div>
 
           <div className={css.formGroup}>
