@@ -1,7 +1,7 @@
 // src/components/NoteList/NoteList.tsx
 import NoteCard from "../NoteCard/NoteCard";
 import css from "./NoteList.module.css";
-import type { Note } from "../../types/note";
+import type { Note } from "../../types/note1";
 
 interface NoteListProps {
   notes: Note[];
