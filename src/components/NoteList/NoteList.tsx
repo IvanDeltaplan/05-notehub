@@ -1,7 +1,7 @@
 // src/components/NoteList/NoteList.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteNote } from "../../services/noteService";
-import type { Note } from "../../types/note_1";
+import type { Note } from "../../types/note";
 import css from "./NoteList.module.css";
 
 interface NoteListProps {
@@ -11,7 +11,7 @@ interface NoteListProps {
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
 
-  // Мутация удаления
+  // Мутація видалення
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteNote(id),
     onSuccess: () => {
@@ -32,8 +32,6 @@ export default function NoteList({ notes }: NoteListProps) {
       {notes.map((note) => (
         <li key={note.id} className={css.listItem}>
           <h2 className={css.title}>{note.title}</h2>
-
-          {/* 🔥 РЕНДЕРИМ CONTENT — как в API */}
           <p className={css.content}>{note.content}</p>
 
           <div className={css.footer}>
@@ -42,7 +40,7 @@ export default function NoteList({ notes }: NoteListProps) {
             <button
               className={css.button}
               type="button"
-              onClick={() => handleDelete(note.id)}
+              onClick={() => note.id && handleDelete(note.id)} // ✅ Перевірка на існування id
               disabled={deleteMutation.isPending}
             >
               {deleteMutation.isPending ? "Deleting..." : "Delete"}

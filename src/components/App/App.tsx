@@ -39,10 +39,16 @@ export default function App() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  // ✅ Додаємо функцію, яка скидає сторінку при зміні пошуку
+  const handleSearchChange = (newSearch: string) => {
+    setSearch(newSearch);
+    setPage(1); // ✅ Скидаємо на першу сторінку
+  };
+
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        <SearchBox value={search} onChange={setSearch} />
+        <SearchBox value={search} onChange={handleSearchChange} />
 
         {totalPages > 1 && (
           <Pagination

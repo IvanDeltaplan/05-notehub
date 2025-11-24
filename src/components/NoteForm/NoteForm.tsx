@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { createNote, type CreateNotePayload } from "../../services/noteService";
-import type { Note } from "../../types/note_1";
+import type { Note } from "../../types/note";
 import css from "./NoteForm.module.css";
 
 interface NoteFormProps {
@@ -21,15 +21,14 @@ const initialValues: CreateNotePayload = {
 
 const validationSchema = Yup.object({
   title: Yup.string()
-  .min(3, "Title must be at least 3 characters")
-  .max(50, "Title must be at most 100 characters")
-  .required("Title is required"),
+    .min(3, "Title must be at least 3 characters")
+    .max(50, "Title must be at most 50 characters") // ✅ Виправив текст помилки
+    .required("Title is required"),
   content: Yup.string()
-  .max(500, "Content must be at least 10 characters")
-  .required("Content is required"),
+    .max(500, "Content must be at most 500 characters"), // ✅ Опційне поле, без .required()
   tag: Yup.string()
-  .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"], "Invalid tag")
-  .required("Tag is required"),
+    .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"], "Invalid tag")
+    .required("Tag is required"),
 });
 
 export default function NoteForm({ onSuccess, onCancel }: NoteFormProps) {
