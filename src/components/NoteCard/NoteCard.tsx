@@ -1,4 +1,4 @@
-import type { Note } from "../../types/note_1";
+import type { Note } from "../../types/note";
 import css from "./NoteCard.module.css";
 
 interface Props {
